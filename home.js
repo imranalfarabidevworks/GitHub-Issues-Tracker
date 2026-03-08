@@ -163,7 +163,7 @@ const showIssueModal = (issue) => {
     modal.showModal(); 
 };
 
-// ---------- Tab Filter Active styles Fix ----------
+// ---------- Tab Filter  ----------
 const setActiveTab = (btn) => {
     // --------------btn--------------------
     [allBtn, openBtn, closedBtn].forEach(b => {
