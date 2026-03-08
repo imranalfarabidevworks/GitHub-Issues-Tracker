@@ -107,7 +107,7 @@ const displayIssues = (issues) => {
     });
 };
 
-// ---------------- Modal logic---------
+// ---------------- Modal logic-------------
 const showIssueModal = (issue) => {
     const modal = document.getElementById('issue_details_modal'); 
     if(!modal) return;
