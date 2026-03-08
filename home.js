@@ -119,12 +119,12 @@ const showIssueModal = (issue) => {
     const myName = "Imran Al Farabi";
     const myDate = "3/8/2026";
 
-    //------------ titile--------------
+    //------------ title--------------
     document.getElementById('modal-title').innerText = issue.title;
     document.getElementById('modal-status').innerText = statusText;
     document.getElementById('modal-status').className = `px-3 py-1 ${statusBg} text-white rounded-md text-xs font-bold`;
     
-    // name and date
+    //------------- name and date----------
     document.getElementById('modal-author-info').innerHTML = `
         Opened by <span class="text-gray-800 font-bold">${myName}</span> • ${myDate}
     `;
@@ -166,7 +166,7 @@ const showIssueModal = (issue) => {
     modal.showModal(); 
 };
 
-// ---------- Tab Filter (Active styles )----------
+// ---------- Tab Filter Active styles ----------
 const setActiveTab = (btn) => {
     [allBtn, openBtn, closedBtn].forEach(b => b.classList.remove('bg-[#7C3AED]', 'text-white'));
     btn.classList.add('bg-[#7C3AED]', 'text-white');
@@ -187,7 +187,7 @@ closedBtn.addEventListener("click", () => {
     displayIssues(allIssuesData.filter(i => i.status?.toLowerCase() === "closed"));
 });
 
-// ========= Search =========
+// -------------- Search -----------
 let timer;
 searchInput.addEventListener("input", (e) => {
     clearTimeout(timer);
@@ -196,5 +196,5 @@ searchInput.addEventListener("input", (e) => {
     }, 400);
 });
 
-// ========= Initial Load =========
+// -----------Initial Load -------------
 fetchIssues();
