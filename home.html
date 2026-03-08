@@ -23,9 +23,83 @@
 </style>
 </head>
 <body>
-   <h1 class="bg-red-400 text-center">welcome my home page</h1> 
-   <p>
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore tempora accusantium libero, veniam nostrum unde dolorem? Vel, totam laboriosam earum enim dignissimos, suscipit est perferendis voluptatum porro commodi ab a!
-   </p>
+    <!-- --------------navber------------- -->
+<div class="bg-[#F8F9FA] min-h-screen pb-10">
+    <!-- -----------------left---------------- -->
+    <div class="navbar bg-white shadow-sm px-6 border-b border-gray-200">
+        <div class="flex items-center gap-2 flex-1">
+            <img class="w-8" src="./assets/github-logo.png" alt="logo">
+            <h2 class="text-lg font-bold text-[#1F2937]">GitHub Issues Tracker</h2>
+        </div>
+        <!-- ----------------right------------ -->
+        <div class="flex items-center gap-3">
+            <input id="searchInput" type="text" placeholder="Search Issues" class="input input-bordered w-48 md:w-80 bg-[#F3F4F6] border-none focus:ring-2 focus:ring-purple-500" />
+            <button class="btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none px-6">
+                <i class="fa-solid fa-plus text-xs"></i> New Issue
+            </button>
+        </div>
+    </div>
+<!-- --------------------tab section------------ -->
+    <div class="max-w-7xl mx-auto px-6 mt-8">
+        
+        <div class="flex justify-start items-center gap-2 mb-8 bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+            <button id="allBtn" class="btn btn-sm px-6 rounded-md bg-[#7C3AED] text-white border-none shadow-md">All</button>
+            <button id="openBtn" class="btn btn-sm px-6 rounded-md bg-white text-gray-500 border-gray-200 hover:bg-gray-50">Open</button>
+            <button id="closedBtn" class="btn btn-sm px-6 rounded-md bg-white text-gray-500 border-gray-200 hover:bg-gray-50">Closed</button>
+        </div>
+<!-- ---------------2nd------------------- -->
+        <div class="flex justify-between items-center mb-6 bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#F3E8FF]
+                 text-[#4A00FF] rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-circle-radiation"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-extrabold text-[#1F2937] leading-none"><span id="issue-count">0</span> Issues</h2>
+                    <p class="text-xs text-gray-400 mt-1">Track and manage your project issues</p>
+                </div>
+            </div>
+            <div class="flex gap-6 text-[13px] font-semibold text-gray-600">
+                <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-[#22C55E] rounded-full"></span> Open</span>
+                <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-[#A855F7] rounded-full"></span> Closed</span>
+            </div>
+        </div>
+<!-- -------------------------all card---------------- -->
+        <div id="issue-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            </div>
+    </div>
+</div>
+<!-- --------------------modal card-------------- -->
+<dialog id="issue_details_modal" class="modal">
+  <div class="modal-box max-w-2xl p-10 rounded-3xl">
+    <h3 id="modal-title" class="font-extrabold text-2xl text-gray-800"></h3>
+    <div class="flex items-center gap-2 mt-2 text-sm text-gray-500">
+        <span id="modal-status"></span>
+        <span id="modal-author-info"></span>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <p id="modal-description" class="py-4 text-gray-600 leading-relaxed"></p>
+    
+    <div class="grid grid-cols-2 gap-4 mt-6">
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase">Assignee:</p>
+            <p id="modal-assignee" class="font-bold text-gray-800"></p>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase">Priority:</p>
+            <span id="modal-priority" class="bg-red-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold"></span>
+        </div>
+    </div>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn bg-[#7C3AED] text-white hover:bg-indigo-700 px-8">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+<script src="./home.js"></script>
 </body>
 </html>
