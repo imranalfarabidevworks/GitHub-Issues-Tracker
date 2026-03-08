@@ -8,7 +8,7 @@ const closedBtn = document.getElementById('closedBtn');
 
 let allIssuesData = [];
 
-//-------------- Fetch Issues---------------
+//-------------- Fetch Issues-------------
 const fetchIssues = async (query = '') => {
     issueContainer.innerHTML = `
     <div class="col-span-full flex justify-center py-20">
