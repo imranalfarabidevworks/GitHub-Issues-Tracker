@@ -1,4 +1,33 @@
-// ------------all Elements Select ----------------
+//console.log('hello Github');
+// ---------------login btn--------------//
+document.getElementById("login-btn")
+.addEventListener("click" , function(){
+//console.log("clicked me");
+// 1. get the user name input//
+const userInput=document.getElementById("userName-input");
+const userName=userInput.value;
+console.log(userName);
+//.2 get the user pin input//
+const pinInput=document.getElementById("pin-input");
+const pin=pinInput.value;
+console.log(pin)
+//.3 match username and pin //
+if(userName =="admin" && pin =="admin123"){
+//----alart succes-------//
+alert("login Succes")
+window.location.assign("./home.html")
+}
+// return faild
+else{
+    alert("Login Faild");
+    return;
+}
+})
+
+
+//----------------home js----------------//
+
+// ------------ all Elements Select ----------------
 const issueContainer = document.getElementById('issue-container');
 const issueCount = document.getElementById('issue-count');
 const searchInput = document.getElementById('searchInput');
@@ -8,7 +37,7 @@ const closedBtn = document.getElementById('closedBtn');
 
 let allIssuesData = [];
 
-//-------------- Fetch Issues-------------
+//-------------- Fetch Issues -------------
 const fetchIssues = async (query = '') => {
     issueContainer.innerHTML = `
     <div class="col-span-full flex justify-center py-20">
@@ -29,7 +58,7 @@ const fetchIssues = async (query = '') => {
         displayIssues(allIssuesData);
     } catch (error) {
         console.log(error);
-        issueContainer.innerHTML = `<p class="text-red-500 text-center col-span-full font-bold">Something went wrong!</p>`;
+        issueContainer.innerHTML = `<p class="text-red-500 text-center col-span-full font-bold py-10">Failed to load issues. Please try again.</p>`;
         issueCount.innerText = "0";
     }
 };
@@ -73,7 +102,7 @@ const displayIssues = (issues) => {
         }
 
         const card = document.createElement("div");
-        card.className = `bg-white p-6 rounded-2xl shadow-sm border-t-[6px] ${borderColor} flex flex-col justify-between hover:shadow-md transition-all cursor-pointer`;
+        card.className = `bg-white p-6 rounded-2xl shadow-sm border-t-[6px] ${borderColor} flex flex-col justify-between hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer`;
         
         card.onclick = () => showIssueModal(issue);
 
@@ -98,8 +127,8 @@ const displayIssues = (issues) => {
                     </span>
                 </div>
                 <div class="text-[12px] text-gray-400 font-medium">
-                    <p class="mb-1">#1 by <span class="text-gray-600 font-bold">${issue.author}</span></p>
-                    <p>${issue.createdAt ? new Date(issue.createdAt).toLocaleDateString() : "3/8/2026"}</p>
+                    <p class="mb-1">#${issue.id || 1} by <span class="text-gray-600 font-bold">${issue.author || "Unknown"}</span></p>
+                    <p>${issue.createdAt ? new Date(issue.createdAt).toLocaleDateString() : "Unknown date"}</p>
                 </div>
             </div>
         `;
@@ -107,7 +136,7 @@ const displayIssues = (issues) => {
     });
 };
 
-// ---------------- Modal logic-------------
+// ---------------- Modal logic -------------
 const showIssueModal = (issue) => {
     const modal = document.getElementById('issue_details_modal'); 
     if(!modal) return;
@@ -115,23 +144,20 @@ const showIssueModal = (issue) => {
     const statusText = issue.status?.toLowerCase() === 'open' ? 'Opened' : 'Closed';
     const statusBg = issue.status?.toLowerCase() === 'open' ? 'bg-[#22C55E]' : 'bg-[#A855F7]';
     
-    //---------name and date------------
-    const myName = "Imran Al Farabi";
-    const myDate = "3/8/2026";
+    const myName = issue.author || "Unknown";
+    const myDate = issue.createdAt ? new Date(issue.createdAt).toLocaleDateString() : "Unknown date";
 
-    //------------ title--------------
     document.getElementById('modal-title').innerText = issue.title;
     document.getElementById('modal-status').innerText = statusText;
     document.getElementById('modal-status').className = `px-3 py-1 ${statusBg} text-white rounded-md text-xs font-bold`;
     
-    //------------- name and date----------
     document.getElementById('modal-author-info').innerHTML = `
         Opened by <span class="text-gray-800 font-bold">${myName}</span> • ${myDate}
     `;
 
-    // --------lebel section---------
-    const label = issue.label?.toLowerCase() || "";
+    // ----------------- Labels ----------------
     let labelHTML = '';
+    const label = issue.label?.toLowerCase() || "";
 
     if (label.includes("bug")) {
         labelHTML = `
@@ -147,18 +173,18 @@ const showIssueModal = (issue) => {
         `;
     }
 
-    //---------------- Help Wanted---------------
     labelHTML += `
         <span class="px-3 py-1 bg-[#FEF3C7] text-[#FBBF24] rounded-xl text-[10px] font-bold uppercase border border-[#FEF3C7] flex items-center gap-1">
             <i class="fa-solid fa-life-ring"></i> HELP WANTED
         </span>
     `;
 
-    // --------modal labels container---------
     const labelsContainer = document.getElementById('modal-labels-container');
-    if(labelsContainer) labelsContainer.innerHTML = labelHTML;
+    if(labelsContainer){
+        labelsContainer.innerHTML = labelHTML;
+        labelsContainer.classList.add('flex', 'gap-2', 'mt-4');
+    }
 
-    // -----------------description----------------
     document.getElementById('modal-description').innerText = issue.description;
     document.getElementById('modal-assignee').innerText = myName; 
     document.getElementById('modal-priority').innerText = issue.priority || 'HIGH';
@@ -166,10 +192,17 @@ const showIssueModal = (issue) => {
     modal.showModal(); 
 };
 
-// ---------- Tab Filter Active styles ----------
+// ---------- Tab Filter Active styles Fix ----------
 const setActiveTab = (btn) => {
-    [allBtn, openBtn, closedBtn].forEach(b => b.classList.remove('bg-[#7C3AED]', 'text-white'));
-    btn.classList.add('bg-[#7C3AED]', 'text-white');
+    // --------------btn--------------------
+    [allBtn, openBtn, closedBtn].forEach(b => {
+        b.classList.remove('bg-[#7C3AED]', 'text-white', 'border-none');
+        b.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
+    });
+
+    // -------------btn color---------
+    btn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+    btn.classList.add('bg-[#7C3AED]', 'text-white', 'border-none');
 };
 
 allBtn.addEventListener("click", () => {
@@ -196,5 +229,5 @@ searchInput.addEventListener("input", (e) => {
     }, 400);
 });
 
-// -----------Initial Load -------------
+// ----------- Initial Load -------------
 fetchIssues();
