@@ -154,7 +154,7 @@ const showIssueModal = (issue) => {
         </span>
     `;
 
-    // --------modal-labels-container----------
+    // --------modal labels container---------
     const labelsContainer = document.getElementById('modal-labels-container');
     if(labelsContainer) labelsContainer.innerHTML = labelHTML;
 
